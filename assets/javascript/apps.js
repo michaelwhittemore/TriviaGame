@@ -1,4 +1,4 @@
- 
+
 //implent questions and answer as an array of objects
 //each Q/A object contains a question, four answers in an array,
 //and a number which tells the correct answer
@@ -33,13 +33,15 @@ var Q4 = {
 var questionList = [Q1, Q2, Q3, Q4]
 var timeLeft;
 var myInterval;
-const timeGiven = 15;
-const timeAnswer =3;
+const timeGiven = 5;
+const timeAnswer = 2;
 var questionNum = 0;
 var wrongs = 0;
 var rights = 0;
-var currentQuestion;
-
+var timeOuts = 0;
+var currentQuestion; //question object
+var isOnQuestion; // is the timer for the question or answer
+var correctAnswer; //the string of the correct answer
 
 
 //Screen updater should change the question, answers, and
@@ -53,31 +55,62 @@ function screenUpdater(QAobject) {
 }
 //should evalute the player's answer
 function answerEval(guess) {
+    //advance the question
+
     //is correct
-    if(guess==currentQuestion.correctAnswer){
+    if (guess == currentQuestion.correctAnswer) {
         rights++;
+        answerScreen("true");
     }
-
-
-
+    //is wrong
+    else {
+        wrongs++;
+        answerScreen("false");
+    }
 }
-//changes the screen to show the answer
-function answerScreen(answerIsCorrect){
+//changes the screen to show the answer and time for a few seconds
+function answerScreen(answerIsCorrect) {
+    isOnQuestion = false;
+    timerSet(timeAnswer);
     $("#maincontent").hide();
     $("#answercontainer").show();
-    if(answerIsCorrect==true){
+    if (answerIsCorrect === "true") {
         $("#yesno").text("You are correct!")
+        $("#correctanswer").empty();
     }
-    else{
-        $("yesno").text("Sorry, that's the wrong answer!")
-        
+    else if (answerIsCorrect === "false") {
+        $("#yesno").text("Sorry, that's the wrong answer!")
+        $("#correctanswer").html("<b> The correct answer was: " + correctAnswer + "! </b>")
     }
+    else {
+        $("#yesno").text("Sorry, you too too long!")
+        $("#correctanswer").html("<b> The correct answer was: " + correctAnswer + "! </b>")
+    }
+
 
 }
 //counts down and prints the time left
 var timeDecrease = function () {
     timeLeft--;
     $("#timeleft").text("Time left: " + timeLeft)
+    //when a timeout occures
+    if (timeLeft === 0) {
+        //timeout on guess
+        if (isOnQuestion) {
+            timeOuts++;
+            answerScreen("TO");
+        }
+        //timeout on watching answer
+        else {
+            questionNum++;
+            if (questionNum >= questionList.length) {
+                gameOver();
+            }
+            else {
+                startQuestion();
+            }
+        }
+    }
 }
 //sets a new timer to count down from 15, and clear old timer
 function timerSet(timeAmount) {
@@ -86,36 +119,50 @@ function timerSet(timeAmount) {
     myInterval = setInterval(timeDecrease, 1000)
 }
 //starts off with the currentquestion 
-function startQuestion(){
+function startQuestion() {
+    isOnQuestion = true;
     $("#startcontainer").hide();
     $("#maincontent").show();
+    $("#answercontainer").hide();
     timerSet(timeGiven);
-    currentQuestion=questionList[questionNum];
+    currentQuestion = questionList[questionNum];
+    correctAnswer = currentQuestion.answers[currentQuestion.correctAnswer];
     screenUpdater(currentQuestion);
 }
 //reset function
-function reset(){
-    wins=0;
-    losses=0;
-    questionNum=0;
+function reset() {
+    rights = 0;
+    wrongs = 0;
+    timeOuts = 0;
+    questionNum = 0;
     $("#startcontainer").show();
     $("#maincontent").hide();
     $("#answercontainer").hide();
+    $("#gameover").hide();
+}
+//function shoukd be called whenever the game ends
+function gameOver() {
+    clearInterval(myInterval);
+    $("#gameover").show();
+    $("#maincontent").hide();
+    $("#answercontainer").hide();
+    $("#rights").text("Correct Answers: " + rights);
+    $("#wrongs").text("Incorrect Answers: " + wrongs);
+    $("#timeouts").text("Unanswered: " + timeOuts);
 }
 
 
 //main function
 window.onload = function () {
     reset();
-    
-    
+
+
     // //onclick events for each answer
     $("#answer0").on("click", function () { answerEval(0) });
     $("#answer1").on("click", function () { answerEval(1) });
     $("#answer2").on("click", function () { answerEval(2) });
     $("#answer3").on("click", function () { answerEval(3) });
     $("#startbutton").on("click", function () { startQuestion() });
+    $("#startover").on("click", function () { reset(); startQuestion() });
 }
 
-//need a function to siwtch between the question screen and the 
-//reset screen

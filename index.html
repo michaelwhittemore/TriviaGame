@@ -62,7 +62,11 @@
     </div>
     <!--second cotainer should hold start button-->
     <div class="container" id='startcontainer'>
-        <button type="button" class="btn btn-success" id="startbutton">Start!</button>
+        <div class="row>">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-success" id="startbutton">Start!</button>
+            </div>
+        </div>
     </div>
     <!-- this container lets the user know if they were right or wrong-->
     <div class="container" id='answercontainer'>
@@ -72,6 +76,20 @@
             </div>
             <div class="col-lg-12" id="correctanswer">
                 This is where the correct answer goes
+            </div>
+        </div>
+    </div>
+    <!-- this is the gameover screen-->
+    <div class="container" id="gameover">
+        <div class="row>">
+            <div class="col-lg-12">
+                <h5> Here is your Score</h5>
+            </div>
+            <div class="col-lg-12" id="rights"></div>
+            <div class="col-lg-12" id="wrongs"></div>
+            <div class="col-lg-12" id="timeouts"></div>
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-success" id="startover">Start Over?</button>
             </div>
         </div>
     </div>
