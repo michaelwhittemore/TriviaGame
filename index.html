@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/javascript/apps.js"></script>
+
+
+</head>
+
+<body>
+    <!-- Title-->
+    <div class="jumbotron">
+        <h1>Trivia Game</h1>
+    </div>
+    <!--main content with Q/A-->
+    <div class="container" id="maincontent">
+        <!-- time left -->
+        <div class="row">
+            <div class="col-lg-12" id='timeleft'>
+                Time Left: 15
+            </div>
+        </div>
+        <!-- Question -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 id="question"> What number am I thinking of? </h5>
+            </div>
+        </div>
+        <!-- answer 1-->
+        <div class="row" id=>
+            <div class="col-lg-12" id='answer0'>
+                answer 1
+            </div>
+        </div>
+        <!-- answer 2-->
+        <div class="row">
+            <div class="col-lg-12" id='answer1'>
+                answer 2
+            </div>
+        </div>
+        <!-- answer 3-->
+        <div class="row">
+            <div class="col-lg-12" id='answer2'>
+                answer 3
+            </div>
+        </div>
+        <!-- answer 4-->
+        <div class="row">
+            <div class="col-lg-12" id='answer3'>
+                answer 4
+            </div>
+        </div>
+    </div>
+    <!--second cotainer should hold start button-->
+    <div class="container" id='startcontainer'>
+        <button type="button" class="btn btn-success" id="startbutton">Start!</button>
+    </div>
+    <!-- this container lets the user know if they were right or wrong-->
+    <div class="container" id='answercontainer'>
+        <div class="row">
+            <div class="col-lg-12" id="yesno">
+                You shouldn't see this text
+            </div>
+            <div class="col-lg-12" id="correctanswer">
+                This is where the correct answer goes
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
