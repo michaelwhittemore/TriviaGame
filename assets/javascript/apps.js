@@ -33,8 +33,8 @@ var Q4 = {
 var questionList = [Q1, Q2, Q3, Q4]
 var timeLeft;
 var myInterval;
-const timeGiven = 5;
-const timeAnswer = 2;
+const timeGiven = 15;
+const timeAnswer = 4;
 var questionNum = 0;
 var wrongs = 0;
 var rights = 0;
